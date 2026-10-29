@@ -1,5 +1,20 @@
+# Dependencies and build output
 node_modules
 dist
+*.tsbuildinfo
+
+# Local tooling and editor settings
+.claude
 .remember
 .playwright-mcp
+.vscode
+.idea
+.DS_Store
+
+# Raw asset downloads
 assets-src
+
+# Environment and logs
+.env
+.env.*
+*.log
