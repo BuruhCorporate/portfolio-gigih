@@ -1,0 +1,64 @@
+/* The city sits behind the whole page. Content scrolls over it; empty space lets clicks through to the buildings. */
+.stage {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  touch-action: pan-y;
+}
+
+.poster {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 70% 50%;
+}
+
+.loading {
+  position: absolute;
+  right: var(--gutter);
+  bottom: 1.25rem;
+  color: var(--slate);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  animation: breathe 1.4s ease-in-out infinite alternate;
+}
+
+@keyframes breathe {
+  from {
+    opacity: 0.35;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Tooltip over a hovered building. drei positions the wrapper; this styles what is inside. */
+.label {
+  display: grid;
+  gap: 0.1rem;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--white);
+  box-shadow: 0 10px 24px -12px rgb(26 31 43 / 0.35);
+  color: var(--ink);
+  font-size: var(--fs-xs);
+  line-height: 1.3;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.label span {
+  color: var(--slate);
+}
+
+.bubble {
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--white);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  white-space: nowrap;
+  pointer-events: none;
+}

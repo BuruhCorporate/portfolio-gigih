@@ -1,0 +1,159 @@
+/* Floating pill, centred over the page. */
+.bar {
+  position: fixed;
+  top: 0.9rem;
+  left: 50%;
+  z-index: 50;
+  width: min(100% - 2 * var(--gutter), 46rem);
+  transform: translateX(-50%);
+}
+
+.inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-height: 3.25rem;
+  padding: 0.35rem 0.4rem 0.35rem 1.25rem;
+  border: 1px solid color-mix(in srgb, var(--line) 80%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--white) 78%, transparent);
+  box-shadow: 0 10px 30px -18px rgb(26 31 43 / 0.35);
+  backdrop-filter: blur(14px) saturate(1.4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+}
+
+.links {
+  display: flex;
+  gap: clamp(1rem, 2.4vw, 1.75rem);
+}
+
+.link {
+  position: relative;
+  display: inline-block;
+  padding-block: 0.35rem;
+  color: var(--slate);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 160ms ease;
+}
+
+.link:hover,
+.link[aria-current='true'] {
+  color: var(--ink);
+}
+
+.link[aria-current='true']::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -0.1rem;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--red);
+  transform: translateX(-50%);
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.5rem;
+  padding: 0 1.15rem;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--white);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color 160ms ease;
+}
+
+.cta:hover {
+  background: var(--red);
+}
+
+.toggle {
+  display: none;
+}
+
+@media (max-width: 47.99rem) {
+  .inner {
+    padding-left: 0.4rem;
+  }
+
+  .toggle {
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  /* Two bars that cross into an X when open */
+  .toggleIcon,
+  .toggleIcon::after {
+    display: block;
+    width: 1.2rem;
+    height: 2px;
+    background: var(--ink);
+    transition: transform 200ms ease;
+  }
+
+  .toggleIcon {
+    position: relative;
+    transform: translateY(-3px);
+  }
+
+  .toggleIcon::after {
+    content: '';
+    position: absolute;
+    top: 6px;
+  }
+
+  .toggleIcon[data-open='true'] {
+    transform: rotate(45deg);
+  }
+
+  .toggleIcon[data-open='true']::after {
+    top: 0;
+    transform: rotate(-90deg);
+  }
+
+  .links {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    right: 0;
+    display: none;
+    flex-direction: column;
+    gap: 0;
+    padding: 0.5rem 1.25rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--white);
+    box-shadow: 0 20px 40px -24px rgb(26 31 43 / 0.4);
+  }
+
+  .links[data-open='true'] {
+    display: flex;
+  }
+
+  .link {
+    display: block;
+    padding-block: 0.8rem;
+    font-size: var(--fs-md);
+  }
+
+  .link[aria-current='true']::after {
+    left: -0.6rem;
+    top: 50%;
+    bottom: auto;
+    transform: translateY(-50%);
+  }
+}

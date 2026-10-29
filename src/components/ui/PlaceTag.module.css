@@ -1,0 +1,18 @@
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--slate);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+}
+
+/* A tiny map pin: a dot with a point, in the building's colour. */
+.pin {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50% 50% 50% 0;
+  background: var(--pin);
+  transform: rotate(-45deg);
+  box-shadow: inset 0 0 0 2.5px color-mix(in srgb, var(--pin) 70%, white);
+}

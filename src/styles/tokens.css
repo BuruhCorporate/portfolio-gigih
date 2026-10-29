@@ -1,0 +1,39 @@
+:root {
+  /* Light architectural-model palette: a pale sky over a white diorama. Red is the brand and call-to-action colour. */
+  --paper: #f4f5f7;
+  --white: #ffffff;
+  --ink: #1a1f2b;
+  --slate: #5a6475;
+  --line: #d5dae1;
+  --red: #d7262e;
+  --red-deep: #b91c24;
+  --gold: #f2b705;
+  --sky: #dbe7f1;
+
+  --font-display: 'Big Shoulders Variable', 'Arial Narrow', sans-serif;
+  --font-body: 'Plus Jakarta Sans Variable', system-ui, sans-serif;
+
+  /* Type scale. Body sits at 17px; display sizes are fluid and set in the condensed face. */
+  --fs-xs: 0.8125rem;
+  --fs-sm: 0.9375rem;
+  --fs-base: 1.0625rem;
+  --fs-md: clamp(1.125rem, 1.05rem + 0.35vw, 1.3125rem);
+  --fs-lg: clamp(1.5rem, 1.25rem + 1vw, 2rem);
+  --fs-xl: clamp(2.5rem, 1.8rem + 3vw, 4.25rem);
+  --fs-title: clamp(3.4rem, 1.4rem + 7.4vw, 8.25rem);
+
+  --gutter: clamp(1rem, 0.4rem + 3vw, 3rem);
+  --max: 78rem;
+  --section-gap: clamp(5rem, 3.5rem + 6vw, 9rem);
+  --nav-h: 4.25rem;
+  /* Text column over the city, and the empty stretch between panels where the camera flies. */
+  --panel-w: 34rem;
+  --dwell: 62svh;
+  --dwell-short: 48svh;
+
+  --radius-sm: 6px;
+  --radius-lg: 14px;
+  --radius-panel: 20px;
+
+  --shadow-panel: 0 28px 60px -34px rgb(26 31 43 / 0.4), 0 2px 8px rgb(26 31 43 / 0.05);
+}

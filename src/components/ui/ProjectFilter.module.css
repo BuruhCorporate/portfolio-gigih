@@ -1,0 +1,30 @@
+.filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Border uses --slate, not --line: controls need 3:1 against the page. */
+.option {
+  min-height: 2.5rem;
+  padding: 0 1rem;
+  border: 1px solid var(--slate);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 160ms ease;
+}
+
+.option:hover {
+  background: var(--white);
+}
+
+.option[aria-pressed='true'] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--white);
+}

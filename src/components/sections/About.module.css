@@ -1,0 +1,83 @@
+.intro {
+  display: grid;
+  grid-template-columns: 7.5rem 1fr;
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.photo {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: var(--radius-lg);
+  object-fit: cover;
+  object-position: center 18%;
+}
+
+/* The one red block in the panel: three numbers on the brand colour. */
+.stats {
+  display: grid;
+  align-content: center;
+  gap: 0.6rem;
+  padding: 1rem 1.1rem;
+  border-radius: var(--radius-lg);
+  background: var(--red);
+  color: var(--white);
+}
+
+.stats li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+
+.statValue {
+  min-width: 2.6ch;
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: 800;
+  line-height: 1;
+}
+
+.statLabel {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.story {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.facts {
+  display: grid;
+  gap: 0.75rem;
+  margin: 1.5rem 0 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+}
+
+.facts div {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr;
+  gap: 1rem;
+}
+
+.facts dt {
+  color: var(--slate);
+  font-size: var(--fs-sm);
+}
+
+.facts dd {
+  margin: 0;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}
+
+@media (min-width: 30rem) {
+  .intro {
+    grid-template-columns: 9.5rem 1fr;
+  }
+}

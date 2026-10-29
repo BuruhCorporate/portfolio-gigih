@@ -1,0 +1,7 @@
+.footer {
+  margin-top: var(--dwell-short);
+  margin-bottom: 1.5rem;
+  padding-block: 1.1rem;
+  color: var(--slate);
+  font-size: var(--fs-sm);
+}

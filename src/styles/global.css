@@ -1,0 +1,154 @@
+@import './tokens.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(180deg, var(--sky) 0%, var(--paper) 75%) fixed;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+/* Section titles use the condensed display face, set big and tight like a film title. */
+h1,
+h2 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.005em;
+}
+
+p {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+}
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Page content floats over the fixed 3D city. Only panels and controls catch the pointer;
+   the empty space between them passes hovers and clicks through to the buildings. */
+main,
+footer {
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
+}
+
+main a,
+main button,
+.panel {
+  pointer-events: auto;
+}
+
+/* The text column: centred on phones, down the left side on wide screens where the city takes the right. */
+.column {
+  width: min(100% - 2 * var(--gutter), var(--panel-w));
+  margin-inline: auto;
+}
+
+@media (min-width: 64rem) {
+  .column {
+    margin-inline: max(var(--gutter), (100% - var(--max)) / 2) auto;
+  }
+}
+
+/* Nav links and clicks on the city both land a panel 22% down the viewport, leaving the building visible above it on phones. */
+.panel[id],
+[data-stop] {
+  scroll-margin-top: 22svh;
+}
+
+.panel {
+  padding: clamp(1.4rem, 1rem + 1.6vw, 2.25rem);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-panel);
+  background: var(--white);
+  box-shadow: var(--shadow-panel);
+}
+
+/* Panels take focus when a map link jumps to them; the scroll shows where you are, so no ring. */
+.panel[tabindex='-1']:focus {
+  outline: none;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--gutter);
+  top: -4rem;
+  z-index: 100;
+  padding: 0.6rem 1rem;
+  background: var(--ink);
+  color: var(--white);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 0.75rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

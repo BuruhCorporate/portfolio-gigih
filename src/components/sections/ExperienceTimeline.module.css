@@ -1,0 +1,97 @@
+.section {
+  padding-top: var(--dwell);
+}
+
+.heading {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.title {
+  font-size: var(--fs-xl);
+}
+
+.intro {
+  color: var(--slate);
+  font-size: var(--fs-md);
+  line-height: 1.55;
+}
+
+/* Gaps between job cards leave room for the camera to fly from one building to the next. */
+.timeline {
+  display: grid;
+  gap: var(--dwell-short);
+  padding-top: var(--dwell-short);
+}
+
+.item {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.item[data-current='true'] {
+  border-color: color-mix(in srgb, var(--red) 45%, var(--line));
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.25rem 1rem;
+  margin-bottom: 0.4rem;
+}
+
+.dates {
+  color: var(--slate);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+}
+
+.item[data-current='true'] .dates {
+  color: var(--red);
+}
+
+.role {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: 800;
+  line-height: 1;
+}
+
+.company {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 0.75rem;
+  color: var(--slate);
+}
+
+.employment {
+  padding: 0 0.55rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+}
+
+.highlights {
+  display: grid;
+  gap: 0.45rem;
+  margin-top: 0.6rem;
+}
+
+.highlights li {
+  position: relative;
+  padding-left: 1.1rem;
+}
+
+.highlights li::before {
+  content: '';
+  position: absolute;
+  top: 0.72em;
+  left: 0;
+  width: 0.45rem;
+  height: 2px;
+  background: var(--red);
+}

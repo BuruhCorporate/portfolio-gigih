@@ -1,0 +1,121 @@
+.section {
+  display: grid;
+  gap: var(--dwell-short);
+  padding-top: var(--dwell);
+}
+
+.header {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.title {
+  font-size: var(--fs-xl);
+}
+
+.intro {
+  color: var(--slate);
+  font-size: var(--fs-md);
+  line-height: 1.55;
+}
+
+.featured {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+}
+
+.byline {
+  color: var(--slate);
+  font-size: var(--fs-sm);
+}
+
+.featuredBody {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.featuredTitle {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 1.5rem + 1.6vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1;
+}
+
+.description {
+  margin-bottom: 0.4rem;
+}
+
+.moreHeader {
+  display: grid;
+  gap: 1rem;
+}
+
+.moreTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: 800;
+}
+
+.count {
+  margin-top: 1rem;
+  color: var(--slate);
+  font-size: var(--fs-sm);
+}
+
+.list {
+  margin-top: 0.5rem;
+  border-top: 1px solid var(--line);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 3.25rem 1fr;
+  gap: 0.4rem 1rem;
+  padding-block: 1.25rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.row > :not(.year) {
+  grid-column: 2;
+}
+
+.year {
+  grid-row: span 3;
+  color: var(--slate);
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+  font-weight: 700;
+}
+
+.rowTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.client {
+  color: var(--slate);
+  font-size: var(--fs-sm);
+}
+
+.rowDescription {
+  font-size: var(--fs-sm);
+}
+
+.empty {
+  margin-top: 1.5rem;
+}
+
+.reset {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 650;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}

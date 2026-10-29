@@ -1,0 +1,50 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 3rem;
+  padding: 0 1.5rem;
+  border: 2px solid transparent;
+  border-radius: var(--radius-sm);
+  font: inherit;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.button:active {
+  transform: translateY(1px);
+}
+
+.primary {
+  background: var(--red);
+  color: var(--white);
+}
+
+.primary:hover {
+  background: var(--red-deep);
+}
+
+/* Outline takes the surrounding text colour, so it works on paper and on the red contact panel. */
+.secondary {
+  border-color: currentColor;
+  background: transparent;
+  color: inherit;
+}
+
+.secondary:hover {
+  background: color-mix(in srgb, currentColor 10%, transparent);
+}
+
+/* Solid button for red surfaces, where the primary would disappear. */
+.inverse {
+  background: var(--white);
+  color: var(--ink);
+}
+
+.inverse:hover {
+  background: var(--paper);
+}
