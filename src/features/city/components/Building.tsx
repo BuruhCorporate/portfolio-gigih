@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { MathUtils, type Group } from 'three'
 import { useFrame, type ThreeEvent } from '@react-three/fiber'
-import { city, type Building as BuildingSpec } from './config'
+import { city, type Building as BuildingSpec } from '../data/config'
 import { PartList, type ScreenTextures } from './Parts'
 
 const MIN_SCALE = 0.001
@@ -23,7 +23,6 @@ interface BuildingProps {
   onSelect: (stop: string) => void
 }
 
-/** One building: rises out of its plot on load, lifts on hover, and links to its page stop on click. */
 export const Building = ({ spec, index, animate, hovered, screenTextures, onHover, onSelect }: BuildingProps) => {
   const liftRef = useRef<Group>(null)
   const riseRef = useRef<Group>(null)

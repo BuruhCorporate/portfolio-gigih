@@ -17,4 +17,8 @@ assets-src
 # Environment and logs
 .env
 .env.*
+# Non-secret, per-mode defaults and the template are shared; .env.local stays private.
+!.env.example
+!.env.development
+!.env.production
 *.log

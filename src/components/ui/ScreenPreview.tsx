@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { screens, type ScreenId } from '../../scene/config'
-import { drawScreen, loadScreenFont } from '../../scene/drawScreen'
+import { drawScreen, loadScreenFont, screens, type ScreenId } from '@/features/city'
 import styles from './ScreenPreview.module.css'
 
 interface ScreenPreviewProps {
@@ -8,7 +7,6 @@ interface ScreenPreviewProps {
   label: string
 }
 
-/** The same dashboard mock the 3D laptop shows, drawn flat inside a browser frame. */
 export const ScreenPreview = ({ screen, label }: ScreenPreviewProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 

@@ -1,5 +1,5 @@
-import type { Certification, Education } from '../../types/portfolio'
-import { Section } from '../layout/Section'
+import type { Certification, Education } from '@/types/portfolio'
+import { Section } from '@/components/layout/Section'
 import styles from './Credentials.module.css'
 
 interface CredentialsProps {

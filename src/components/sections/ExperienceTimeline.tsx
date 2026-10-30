@@ -1,13 +1,12 @@
-import type { Experience } from '../../types/portfolio'
-import { formatMonth } from '../../lib/date'
-import { PlaceTag } from '../ui/PlaceTag'
+import type { Experience } from '@/types/portfolio'
+import { formatMonth } from '@/lib/date'
+import { PlaceTag } from '@/components/ui/PlaceTag'
 import styles from './ExperienceTimeline.module.css'
 
 interface ExperienceTimelineProps {
   items: Experience[]
 }
 
-/** Each job is its own stop: the camera visits that company's building while its card is on screen. */
 export const ExperienceTimeline = ({ items }: ExperienceTimelineProps) => (
   <section className={`column ${styles.section}`} aria-labelledby="work-title">
     <div id="work" className={`panel ${styles.heading}`} data-stop="work" tabIndex={-1}>

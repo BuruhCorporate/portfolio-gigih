@@ -10,14 +10,13 @@ export type ButtonProps = ButtonLinkProps | ButtonActionProps
 
 const isLink = (props: ButtonProps): props is ButtonLinkProps => typeof props.href === 'string'
 
-/** Renders an <a> when given an href, otherwise a <button>. */
 export const Button = (props: ButtonProps) => {
   const className = [styles.button, styles[props.variant ?? 'primary'], props.className].filter(Boolean).join(' ')
 
   if (isLink(props)) {
-    const { variant: _variant, ...rest } = props
+    const { variant, ...rest } = props
     return <a {...rest} className={className} />
   }
-  const { variant: _variant, ...rest } = props
+  const { variant, ...rest } = props
   return <button type="button" {...rest} className={className} />
 }

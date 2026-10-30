@@ -1,4 +1,4 @@
-import type { Experience } from '../types/portfolio'
+import type { Experience } from '@/types/portfolio'
 
 // Newest first. MNC overlaps the BPH Migas contract and the Intishaka freelance job; both ran alongside it.
 export const experience: Experience[] = [

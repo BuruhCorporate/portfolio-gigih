@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { MathUtils, Vector3, type Group } from 'three'
+import { MathUtils, PCFShadowMap, Vector3, type Group } from 'three'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Environment, Html, PerformanceMonitor } from '@react-three/drei'
-import { city, type ScreenId, type Stop } from './config'
-import { useScreenTextures } from './useScreenTextures'
+import { city, type ScreenId, type Stop } from '../data/config'
+import { useScreenTextures } from '../hooks/useScreenTextures'
 import { Building } from './Building'
 import { PartList } from './Parts'
 import { Ground } from './Ground'
@@ -33,7 +33,6 @@ interface View {
   distance: number
 }
 
-/** Flies the camera to the active stop and offsets the frame so the subject clears the text column. */
 const CameraRig = ({ stop, animate }: { stop: Stop; animate: boolean }) => {
   const camera = useThree((state) => state.camera)
   const size = useThree((state) => state.size)
@@ -48,7 +47,6 @@ const CameraRig = ({ stop, animate }: { stop: Stop; animate: boolean }) => {
       elevation: stop.elevation + (animate ? pointer.y * cam.parallax * PARALLAX_TILT : 0),
       distance: stop.distance * (narrow ? cam.narrowDistance : 1),
     }
-    // First frame: start high and far out, then settle in.
     view.current ??= animate
       ? { ...goal, target: goal.target.clone(), distance: goal.distance * cam.intro.distance, elevation: goal.elevation + cam.intro.elevation }
       : { ...goal, target: goal.target.clone() }
@@ -86,7 +84,6 @@ const CameraRig = ({ stop, animate }: { stop: Stop; animate: boolean }) => {
   return null
 }
 
-/** The red map pin that hovers over the building for the current stop. */
 const Pin = ({ stopId, animate }: { stopId: string; animate: boolean }) => {
   const ref = useRef<Group>(null)
   const building = buildings.find((item) => item.stop === stopId)
@@ -128,7 +125,6 @@ const HoverLabel = ({ id }: { id: string }) => {
   )
 }
 
-/** Shows the pointer cursor while a building is under it. */
 const useHoverCursor = (hovered: string | null) => {
   useEffect(() => {
     document.body.style.cursor = hovered ? 'pointer' : ''
@@ -146,14 +142,8 @@ const INTRO_END = rise.delay + rise.stagger * buildings.length + rise.duration
  * the opening rise and a moment after each hover lift. Cars and the figure use blob shadows.
  */
 const ShadowBaker = ({ hovered }: { hovered: string | null }) => {
-  const gl = useThree((state) => state.gl)
   const settleUntil = useRef(0)
   const pending = useRef(true)
-
-  useEffect(() => {
-    gl.shadowMap.autoUpdate = false
-    gl.shadowMap.needsUpdate = true
-  }, [gl])
 
   useEffect(() => {
     pending.current = true
@@ -165,7 +155,7 @@ const ShadowBaker = ({ hovered }: { hovered: string | null }) => {
       settleUntil.current = now + perf.settle
       pending.current = false
     }
-    if (now < INTRO_END || now < settleUntil.current) gl.shadowMap.needsUpdate = true
+    if (now < INTRO_END || now < settleUntil.current) state.gl.shadowMap.needsUpdate = true
   })
 
   return null
@@ -181,7 +171,6 @@ interface CitySceneProps {
   stopId: string
   animate: boolean
   maxDpr: number
-  /** smaller shadow map on phones */
   compact: boolean
   onSelect: (stop: string) => void
 }
@@ -197,7 +186,7 @@ export const CityScene = ({ stopId, animate, maxDpr, compact, onSelect }: CitySc
 
   return (
     <Canvas
-      shadows="percentage"
+      shadows={{ enabled: true, type: PCFShadowMap, autoUpdate: false }}
       dpr={dpr}
       camera={{ fov: cam.fov, near: cam.near, far: cam.far, position: [0, cam.far * PARALLAX_TILT, 0] }}
       gl={{ antialias: true, alpha: true }}

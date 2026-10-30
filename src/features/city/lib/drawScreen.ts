@@ -1,4 +1,4 @@
-import { screens, type ScreenElement, type ScreenId } from './config'
+import { screens, type ScreenElement, type ScreenId } from '../data/config'
 
 const FULL_CIRCLE = Math.PI + Math.PI
 const DEFAULT_WEIGHT = 400
@@ -7,7 +7,6 @@ const BAR_CORNER_RATIO = 0.16
 
 type Painters = { [T in ScreenElement['type']]: (element: Extract<ScreenElement, { type: T }>) => void }
 
-/** Paints one dashboard screen, scaled from the design size to the canvas width. */
 export const drawScreen = (canvas: HTMLCanvasElement, id: ScreenId) => {
   const spec = screens.screens.find((screen) => screen.id === id)
   const ctx = canvas.getContext('2d')
@@ -71,7 +70,6 @@ const SIGN_HEIGHT_PX = 96
 const SIGN_TEXT_RATIO = 0.5
 const SIGN_WEIGHT = 700
 
-/** A shop-front sign: centred bold text on a flat colour, sized to the sign's aspect ratio. */
 export const drawSign = (canvas: HTMLCanvasElement, text: string, background: string, color: string, aspect: number) => {
   const ctx = canvas.getContext('2d')
   if (!ctx) return
@@ -84,7 +82,6 @@ export const drawSign = (canvas: HTMLCanvasElement, text: string, background: st
   ctx.textBaseline = 'middle'
   const size = SIGN_HEIGHT_PX * SIGN_TEXT_RATIO
   ctx.font = `${SIGN_WEIGHT} ${size}px ${screens.font}`
-  // Shrink long names until they fit with a little margin on both sides.
   const fit = Math.min(1, (canvas.width * SIGN_TEXT_RATIO + canvas.width * SIGN_TEXT_RATIO * SIGN_TEXT_RATIO) / ctx.measureText(text).width)
   ctx.font = `${SIGN_WEIGHT} ${size * fit}px ${screens.font}`
   ctx.fillText(text, canvas.width * HALF, canvas.height * HALF)

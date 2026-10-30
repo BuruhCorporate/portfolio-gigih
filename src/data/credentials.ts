@@ -1,4 +1,4 @@
-import type { Certification, Education } from '../types/portfolio'
+import type { Certification, Education } from '@/types/portfolio'
 
 export const education: Education = {
   degree: 'Bachelor of Informatics Engineering',

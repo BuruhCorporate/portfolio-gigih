@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import type { Project, Stack } from '../types/portfolio'
+import type { Project, Stack } from '@/types/portfolio'
 
 export type StackFilter = Stack | 'All'
 

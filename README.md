@@ -20,15 +20,15 @@ npm run preview  # serve dist/ with the production CSP meta tag
 | Jobs | `src/data/experience.ts` (newest first, `end: null` = current role). Each job needs a `job-<id>` stop and building in `city.json`. |
 | Projects | `src/data/projects.ts` (`featured: true` = own panel and tech-park tower, `screen` = which dashboard it shows) |
 | Skills, degree, certifications | `src/data/skills.ts`, `src/data/credentials.ts` |
-| Places on the hero map key | `mapStops` in `src/App.tsx` |
+| Places on the hero map key, quick-fact stats | `mapStops`, `stats` in `src/data/index.ts` |
 | Fallback image | `src/data/media.ts` |
 | Colours, type scale, spacing, gaps between stops | `src/styles/tokens.css` (`--dwell`, `--dwell-short`) |
-| Buildings, roads, trees, cars, the figure, lighting | `src/scene/city.json` (units ≈ metres, seconds, radians) |
-| Camera framing and place name per stop | `stops` in `src/scene/city.json` |
-| What the billboards and project previews show | `src/scene/screens.json` |
-| Security headers and CSP | `security-headers.json`, then `npm run build` |
+| Buildings, roads, trees, cars, the figure, lighting | `src/features/city/data/city.json` (units ≈ metres, seconds, radians) |
+| Camera framing and place name per stop | `stops` in `src/features/city/data/city.json` |
+| What the billboards and project previews show | `src/features/city/data/screens.json` |
+| Security headers and CSP | `config/security-headers.json`, then `npm run build` |
 
-Content shapes are typed in `src/types/portfolio.ts`; city and screen shapes in `src/scene/config.ts`. Data flows one way: `data/*` → `App.tsx` → section props → UI components.
+Content shapes are typed in `src/types/portfolio.ts`; city and screen shapes in `src/features/city/data/config.ts`. Data flows one way: `src/data` (raw content plus derived values like `currentRole` and `stats`) → `App.tsx` (composition only) → section props → UI components. Imports that leave their folder use the `@/` alias for `src/`; code outside the city feature imports it only through `@/features/city`.
 
 ### How a stop works
 
@@ -37,28 +37,28 @@ Any element with `data-stop="<id>"` is a stop. `useActiveStop` reports the lowes
 ## Structure
 
 ```
+config/
+  security-headers.json   source of the CSP and headers; scripts/write-headers.mjs generates vercel.json and public/_headers
 src/
-  types/        content interfaces
-  data/         all copy and content, poster path, credits
-  hooks/        useActiveStop, useActiveSection, useMediaQuery, useReducedMotion, useProjectFilter, useClipboard, useSmoothScroll
-  lib/          formatMonth, scrollToStop
+  main.tsx, App.tsx       entry and page composition (no logic)
+  types/                  content types
+  data/                   all copy and content; index.ts re-exports it with derived values (currentRole, stats, mapStops)
+  hooks/                  useActiveStop, useActiveSection, useMediaQuery, useReducedMotion, useProjectFilter, useClipboard, useSmoothScroll
+  lib/                    formatMonth, scrollToStop, protect (copy deterrents)
   components/
-    layout/     Navbar (floating pill), Section (gap + panel), Footer
-    ui/         Button, TagList, ProjectFilter, PlaceTag, ScreenPreview
-    sections/   Hero (with map key), About, ExperienceTimeline (a panel per company), Projects, Skills, Credentials, Contact
-  scene/
-    CityStage   fixed canvas behind the page, lazy load, WebGL fallback
-    CityScene   canvas, lights, camera rig, pin, hover label
-    Building    rise-in, hover lift, click to visit
-    Parts       renders the part lists in city.json (boxes with windows, prisms, signs, billboards, ...)
-    Ground      diorama base, roads, plots, trees
-    Cars, Character
-    geometry.ts pure maths (tested in tests/)
-    city.json, screens.json, config.ts, drawScreen.ts
-  styles/       tokens.css, global.css
-tests/          node:test checks for geometry.ts
-public/         hdri/studio.hdr, images/city.webp, gigih.jpg
-scripts/write-headers.mjs
+    layout/               Navbar, Section (gap + panel), Footer
+    ui/                   Button, Tag, ProjectFilter, PlaceTag, ScreenPreview
+    sections/             Hero, About, ExperienceTimeline, Projects, Skills, Credentials, Contact
+  features/city/          the 3D city; index.ts is its public API
+    components/           CityStage (lazy canvas + WebGL fallback), CityScene, Building, Parts, Ground, Cars, Character
+    data/                 city.json, screens.json, config.ts (types for both)
+    lib/                  geometry.ts (pure maths, tested), drawScreen.ts
+    hooks/                useInstances, useScreenTextures
+  styles/                 tokens.css, global.css
+tests/                    node:test checks for features/city/lib/geometry.ts
+public/                   hdri/studio.hdr, images/city.webp, gigih.jpg
+scripts/                  write-headers.mjs (runs before every build)
+docs/                     PLAN.md
 ```
 
 ## Assets and licenses
@@ -77,6 +77,7 @@ Everything in the city (buildings, the figure, cars, trees, signs) is modelled i
 - `nosniff`, `X-Frame-Options: DENY`, `frame-ancestors 'none'`, strict `Referrer-Policy`, locked-down `Permissions-Policy`, HSTS, `Cross-Origin-Opener-Policy`.
 - Headers ship as `vercel.json` (Vercel) and `public/_headers` (Netlify, Cloudflare Pages), plus a CSP meta tag in the built `index.html` for any other host.
 - External links use `rel="noopener noreferrer"`. `npm audit` reports 0 vulnerabilities.
+- Copy deterrents (`src/lib/protect.ts`): no right-click, devtools/view-source/save/print shortcuts blocked, no text selection, blank print, and the page blurs on PrintScreen or when the tab loses focus. Controlled by `VITE_PROTECT`: `.env.development` sets it `false` for `npm run dev`, `.env.production` sets it `true` for builds (Vercel, `npm run preview`). Override in `.env.development.local` / `.env.production.local` (private, see `.env.example`) or in Vercel's Environment Variables, which win over every file. These only slow down casual copying: browser-menu devtools and OS screenshot tools still work.
 
 ## Behavior notes
 

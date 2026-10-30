@@ -1,10 +1,10 @@
 import { useRef, type CSSProperties } from 'react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
-import type { Experience, Profile } from '../../types/portfolio'
-import { useReducedMotion } from '../../hooks/useReducedMotion'
-import { city } from '../../scene/config'
-import { Button } from '../ui/Button'
+import type { Experience, Profile } from '@/types/portfolio'
+import { useReducedMotion } from '@/hooks/useReducedMotion'
+import { city } from '@/features/city'
+import { Button } from '@/components/ui/Button'
 import styles from './Hero.module.css'
 
 gsap.registerPlugin(useGSAP)
@@ -14,7 +14,6 @@ const ENTRANCE = { y: 28, opacity: 0, duration: 0.9, ease: 'power3.out', stagger
 interface HeroProps {
   profile: Profile
   current: Experience
-  /** stops listed on the map key, in tour order */
   mapStops: string[]
   onSelect: (stop: string) => void
 }
@@ -23,7 +22,6 @@ export const Hero = ({ profile, current, mapStops, onSelect }: HeroProps) => {
   const rootRef = useRef<HTMLElement>(null)
   const reducedMotion = useReducedMotion()
 
-  // One entrance for the page: the copy rises in while the buildings rise out of the city.
   useGSAP(
     () => {
       if (reducedMotion) return

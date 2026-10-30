@@ -1,9 +1,9 @@
 import { useLayoutEffect, useMemo, useRef } from 'react'
 import { Color, type InstancedMesh } from 'three'
 import { RoundedBox } from '@react-three/drei'
-import { city } from './config'
-import { roadDashes } from './geometry'
-import { useInstances, type InstanceTransform } from './useInstances'
+import { city } from '../data/config'
+import { roadDashes } from '../lib/geometry'
+import { useInstances, type InstanceTransform } from '../hooks/useInstances'
 
 const { ground, lines, plots, trees, props } = city
 const HALF = 0.5
@@ -71,7 +71,6 @@ const Trees = () => {
   )
 }
 
-/** The diorama base: a slab of soil under a pale top, ring and cross roads, and a plot per block. */
 export const Ground = () => (
   <group>
     <mesh position={[0, -ground.thickness * HALF - TOP_LAYER * HALF, 0]} receiveShadow>

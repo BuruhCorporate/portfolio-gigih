@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import { MathUtils, type Group } from 'three'
 import { useFrame, type ThreeEvent } from '@react-three/fiber'
 import { Html } from '@react-three/drei'
-import { city } from './config'
-import { roadPath, type Point } from './geometry'
+import { city } from '../data/config'
+import { roadPath, type Point } from '../lib/geometry'
 import { BlobShadow, PartList } from './Parts'
 import styles from './CityStage.module.css'
 
@@ -29,12 +29,10 @@ const routeLength = (from: Point, points: Point[]) =>
   }).length
 
 interface CharacterProps {
-  /** road spot to walk to */
   spot: [number, number]
   animate: boolean
 }
 
-/** A toy figure of Gigih that walks the roads to whichever stop the page is on. Click it to say hi. */
 export const Character = ({ spot, animate }: CharacterProps) => {
   const rootRef = useRef<Group>(null)
   const shadowRef = useRef<Group>(null)
@@ -57,7 +55,6 @@ export const Character = ({ spot, animate }: CharacterProps) => {
     if (!root) return
     const now = state.clock.elapsedTime
 
-    // New stop: plan a road route from wherever the figure stands right now.
     if (route.current.goal !== spot.join()) {
       route.current = { goal: spot.join(), points: animate ? roadPath(position.current, toPoint(spot), lines) : [] }
       if (!animate) position.current = toPoint(spot)
@@ -80,7 +77,6 @@ export const Character = ({ spot, animate }: CharacterProps) => {
       }
       if (gap > ARRIVED) root.rotation.y += angleDelta(root.rotation.y, Math.atan2(dx, dz)) * turnBy
     } else {
-      // Waiting at a stop: face the camera's side of the street.
       root.rotation.y += angleDelta(root.rotation.y, 0) * turnBy
     }
 
@@ -95,7 +91,6 @@ export const Character = ({ spot, animate }: CharacterProps) => {
     root.position.set(position.current.x, ROAD_TOP + jump + bob, position.current.z)
     shadowRef.current?.position.set(position.current.x, ROAD_TOP, position.current.z)
 
-    // Legs and arms swing in opposite pairs; the right arm waves during a jump.
     const swing = next ? Math.sin(now * character.stride * (speed / character.walkSpeed)) * character.swing : 0
     const legAngles = [swing, -swing]
     const armAngles = [-swing, jumping ? -Math.PI * (1 - jumpT) : swing]

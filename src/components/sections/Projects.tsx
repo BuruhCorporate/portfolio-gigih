@@ -1,9 +1,9 @@
-import type { Project, Stack } from '../../types/portfolio'
-import { useProjectFilter, type StackFilter } from '../../hooks/useProjectFilter'
-import { PlaceTag } from '../ui/PlaceTag'
-import { TagList } from '../ui/Tag'
-import { ProjectFilter } from '../ui/ProjectFilter'
-import { ScreenPreview } from '../ui/ScreenPreview'
+import type { Project, Stack } from '@/types/portfolio'
+import { useProjectFilter, type StackFilter } from '@/hooks/useProjectFilter'
+import { PlaceTag } from '@/components/ui/PlaceTag'
+import { TagList } from '@/components/ui/Tag'
+import { ProjectFilter } from '@/components/ui/ProjectFilter'
+import { ScreenPreview } from '@/components/ui/ScreenPreview'
 import styles from './Projects.module.css'
 
 interface ProjectsProps {
@@ -13,7 +13,6 @@ interface ProjectsProps {
 
 const byline = (project: Project): string => [project.client, project.year].filter(Boolean).join(', ')
 
-// Each featured project has a tower in the tech park; its dashboard plays on the rooftop billboard.
 const FeaturedProject = ({ project }: { project: Project }) => (
   <article className={`panel ${styles.featured}`} data-stop={`project-${project.id}`} tabIndex={-1}>
     <PlaceTag stop={`project-${project.id}`} />

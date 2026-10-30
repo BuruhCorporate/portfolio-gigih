@@ -1,7 +1,7 @@
-import type { Profile } from '../../types/portfolio'
-import { useClipboard, type CopyStatus } from '../../hooks/useClipboard'
-import { Button } from '../ui/Button'
-import { PlaceTag } from '../ui/PlaceTag'
+import type { Profile } from '@/types/portfolio'
+import { useClipboard, type CopyStatus } from '@/hooks/useClipboard'
+import { Button } from '@/components/ui/Button'
+import { PlaceTag } from '@/components/ui/PlaceTag'
 import styles from './Contact.module.css'
 
 interface ContactProps {

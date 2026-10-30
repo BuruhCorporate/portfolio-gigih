@@ -1,6 +1,6 @@
 import { Component, lazy, Suspense, useState, type ReactNode } from 'react'
-import { useMediaQuery } from '../hooks/useMediaQuery'
-import { useReducedMotion } from '../hooks/useReducedMotion'
+import { useMediaQuery } from '@/hooks/useMediaQuery'
+import { useReducedMotion } from '@/hooks/useReducedMotion'
 import styles from './CityStage.module.css'
 
 // three.js is the heaviest part of the bundle; load it after the page text has painted.
@@ -45,7 +45,6 @@ interface CityStageProps {
   poster: { src: string; alt: string }
 }
 
-/** The 3D city fixed behind the page, with a still image when WebGL is missing or fails. */
 export const CityStage = ({ stopId, onSelect, poster }: CityStageProps) => {
   const reducedMotion = useReducedMotion()
   const isDesktop = useMediaQuery('(min-width: 1024px)')

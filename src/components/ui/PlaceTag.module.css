@@ -7,7 +7,6 @@
   font-weight: 600;
 }
 
-/* A tiny map pin: a dot with a point, in the building's colour. */
 .pin {
   width: 0.7rem;
   height: 0.7rem;

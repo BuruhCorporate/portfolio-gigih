@@ -1,6 +1,6 @@
 import { useLayoutEffect, type RefObject } from 'react'
 import { Object3D, type InstancedMesh } from 'three'
-import type { Vec3 } from './config'
+import type { Vec3 } from '../data/config'
 
 export interface InstanceTransform {
   position: Vec3
@@ -8,7 +8,6 @@ export interface InstanceTransform {
   scale?: Vec3
 }
 
-/** Writes one matrix per transform into an instanced mesh. */
 export const useInstances = (ref: RefObject<InstancedMesh | null>, transforms: InstanceTransform[]) => {
   useLayoutEffect(() => {
     const mesh = ref.current

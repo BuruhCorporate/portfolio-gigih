@@ -1,8 +1,8 @@
 import { useMemo, useRef } from 'react'
 import type { Group } from 'three'
 import { useFrame } from '@react-three/fiber'
-import { city, type Loop, type Part } from './config'
-import { pointOnLoop } from './geometry'
+import { city, type Loop, type Part } from '../data/config'
+import { pointOnLoop } from '../lib/geometry'
 import { BlobShadow, PartList } from './Parts'
 
 const ROAD_TOP = 0.02
@@ -14,7 +14,6 @@ const inset = ([minX, minZ, maxX, maxZ]: Loop, by: number): Loop => [minX + by, 
 const paint = (parts: Part[], color: string): Part[] =>
   parts.map((part) => ('color' in part && part.color === ACCENT ? { ...part, color } : part))
 
-/** Small cars looping the ring road and the inner blocks. */
 export const Cars = ({ animate }: { animate: boolean }) => {
   const refs = useRef<(Group | null)[]>([])
   const cars = useMemo(

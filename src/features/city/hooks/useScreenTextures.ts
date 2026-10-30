@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { CanvasTexture, SRGBColorSpace } from 'three'
-import { screens, type ScreenId } from './config'
-import { drawScreen, loadScreenFont } from './drawScreen'
+import { screens, type ScreenId } from '../data/config'
+import { drawScreen, loadScreenFont } from '../lib/drawScreen'
 
 const ANISOTROPY = 8
 

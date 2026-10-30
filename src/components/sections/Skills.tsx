@@ -1,6 +1,6 @@
-import type { SkillGroup } from '../../types/portfolio'
-import { Section } from '../layout/Section'
-import { TagList } from '../ui/Tag'
+import type { SkillGroup } from '@/types/portfolio'
+import { Section } from '@/components/layout/Section'
+import { TagList } from '@/components/ui/Tag'
 import styles from './Skills.module.css'
 
 interface SkillsProps {

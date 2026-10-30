@@ -14,7 +14,6 @@
   object-position: center 18%;
 }
 
-/* The one red block in the panel: three numbers on the brand colour. */
 .stats {
   display: grid;
   align-content: center;

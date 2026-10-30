@@ -1,7 +1,7 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { pointOnLoop, roadDashes, roadPath, windowPanes } from '../src/scene/geometry.ts'
-import city from '../src/scene/city.json' with { type: 'json' }
+import { pointOnLoop, roadDashes, roadPath, windowPanes } from '../src/features/city/lib/geometry.ts'
+import city from '../src/features/city/data/city.json' with { type: 'json' }
 
 const lines = [-7.5, -2.5, 2.5, 7.5]
 

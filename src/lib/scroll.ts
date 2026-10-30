@@ -7,10 +7,7 @@ export const registerSmoothScroll = (lenis: Lenis | null) => {
   smooth = lenis
 }
 
-/**
- * Scrolls to the panel for a city stop and moves keyboard focus to it.
- * Where it lands comes from `scroll-margin-top` in global.css, which both Lenis and native scrolling honour.
- */
+/** Where it lands comes from `scroll-margin-top` in global.css, which both Lenis and native scrolling honour. */
 export const scrollToStop = (stop: string) => {
   const panel = document.querySelector<HTMLElement>(`[data-stop="${CSS.escape(stop)}"]`)
   if (!panel) return

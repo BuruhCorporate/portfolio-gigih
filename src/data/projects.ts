@@ -1,4 +1,4 @@
-import type { Project, Stack } from '../types/portfolio'
+import type { Project, Stack } from '@/types/portfolio'
 
 export const stacks: Stack[] = ['Angular', 'Vue', 'Laravel', 'Golang']
 

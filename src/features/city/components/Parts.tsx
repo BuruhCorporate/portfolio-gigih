@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { CanvasTexture, DoubleSide, ExtrudeGeometry, Shape, SRGBColorSpace, type InstancedMesh } from 'three'
 import { RoundedBox } from '@react-three/drei'
-import { city, type Part, type ScreenId } from './config'
-import { drawSign, loadScreenFont } from './drawScreen'
-import { windowPanes } from './geometry'
-import { useInstances, type InstanceTransform } from './useInstances'
+import { city, type Part, type ScreenId } from '../data/config'
+import { drawSign, loadScreenFont } from '../lib/drawScreen'
+import { windowPanes } from '../lib/geometry'
+import { useInstances, type InstanceTransform } from '../hooks/useInstances'
 
 type PartOf<S extends Part['shape']> = Extract<Part, { shape: S }>
 
@@ -47,7 +47,6 @@ const Prism = ({ part, casts }: { part: PartOf<'prism'>; casts: boolean }) => {
   )
 }
 
-/** Window panes for one box, drawn as a single instanced mesh. */
 const Panes = ({ part }: { part: PartOf<'box'> }) => {
   const ref = useRef<InstancedMesh>(null)
   const panes = useMemo(
@@ -176,7 +175,6 @@ interface PartListProps {
   castShadows?: boolean
 }
 
-/** Renders a list of parts from city.json. */
 export const PartList = ({ parts, screenTextures = null, castShadows = true }: PartListProps) => (
   <>
     {parts.map((part, i) => (

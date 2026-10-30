@@ -1,4 +1,4 @@
-import type { NavLink, Profile } from '../types/portfolio'
+import type { NavLink, Profile } from '@/types/portfolio'
 
 export const profile: Profile = {
   name: 'Gigih Satriono',

@@ -58,7 +58,6 @@ export const pointOnLoop = ([minX, minZ, maxX, maxZ]: [number, number, number, n
     const end = corners[(i + 1) % corners.length]
     return Math.abs(end.x - start.x) + Math.abs(end.z - start.z)
   })
-  // distance along the loop where each edge begins
   const starts = lengths.map((_, i) => lengths.slice(0, i).reduce((sum, length) => sum + length, 0))
   const index = Math.max(0, starts.findLastIndex((start) => start <= travelled))
   const edge = { start: corners[index], end: corners[(index + 1) % corners.length], length: lengths[index] }
@@ -100,7 +99,6 @@ export const windowPanes = (
   })
 }
 
-/** Centre-line dashes along every road, leaving the crossings clear. */
 export const roadDashes = (lines: number[], extent: number, roadWidth: number, length: number, gap: number): Placement[] => {
   const step = length + gap
   const count = Math.floor((extent + extent) / step)

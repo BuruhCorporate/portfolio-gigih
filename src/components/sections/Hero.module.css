@@ -1,4 +1,3 @@
-/* Phones: the city fills the top of the screen and the words sit on a soft paper wash below it. */
 .hero {
   display: grid;
   gap: 1.5rem;
@@ -112,7 +111,6 @@
   background: color-mix(in srgb, var(--pin) 8%, white);
 }
 
-/* Wide screens: the words stand on the sky to the left of the city, the map key under them. */
 @media (min-width: 64rem) {
   .hero {
     align-content: center;

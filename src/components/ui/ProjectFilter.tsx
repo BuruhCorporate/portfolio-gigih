@@ -1,4 +1,4 @@
-import type { StackFilter } from '../../hooks/useProjectFilter'
+import type { StackFilter } from '@/hooks/useProjectFilter'
 import styles from './ProjectFilter.module.css'
 
 interface ProjectFilterProps {

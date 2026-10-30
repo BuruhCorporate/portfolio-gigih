@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import type { NavLink } from '../../types/portfolio'
-import { useActiveSection } from '../../hooks/useActiveSection'
+import type { NavLink } from '@/types/portfolio'
+import { useActiveSection } from '@/hooks/useActiveSection'
 import styles from './Navbar.module.css'
 
 interface NavbarProps {

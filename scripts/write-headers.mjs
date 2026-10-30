@@ -1,7 +1,7 @@
-// Writes vercel.json and public/_headers from security-headers.json so every host sends the same policy.
+// Writes vercel.json and public/_headers from config/security-headers.json so every host sends the same policy.
 // Runs automatically before `npm run build`.
 import { writeFileSync } from 'node:fs'
-import security from '../security-headers.json' with { type: 'json' }
+import security from '../config/security-headers.json' with { type: 'json' }
 
 const all = { 'Content-Security-Policy': security.csp.join('; '), ...security.headers }
 const longCache = 'public, max-age=31536000, immutable'
@@ -19,4 +19,3 @@ const lines = ['/*', ...Object.entries(all).map(([key, value]) => `  ${key}: ${v
 assetDirs.forEach((dir) => lines.push(`/${dir}/*`, `  Cache-Control: ${longCache}`, ''))
 writeFileSync('public/_headers', lines.join('\n'))
 
-console.log('wrote vercel.json and public/_headers')

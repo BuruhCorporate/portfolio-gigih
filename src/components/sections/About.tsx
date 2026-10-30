@@ -1,13 +1,12 @@
-import type { Education, Experience, Profile } from '../../types/portfolio'
-import { Section } from '../layout/Section'
+import type { Education, Experience, Profile, Stat } from '@/types/portfolio'
+import { Section } from '@/components/layout/Section'
 import styles from './About.module.css'
 
 interface AboutProps {
   profile: Profile
   current: Experience
   education: Education
-  /** counts derived from the data, shown as quick facts */
-  stats: { value: string; label: string }[]
+  stats: Stat[]
 }
 
 export const About = ({ profile, current, education, stats }: AboutProps) => {

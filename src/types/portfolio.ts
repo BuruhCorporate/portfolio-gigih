@@ -1,4 +1,4 @@
-import type { ScreenId } from '../scene/config'
+import type { ScreenId } from '@/features/city'
 
 export interface Profile {
   name: string
@@ -64,4 +64,9 @@ export interface Certification {
   issuer: string
   date: string
   detail: string
+}
+
+export type Stat = {
+  value: string
+  label: string
 }
