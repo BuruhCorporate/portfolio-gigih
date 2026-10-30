@@ -15,7 +15,6 @@
   "desktopMin": 1024
  },
  "lights": {
-  "environment": "/hdri/studio.hdr",
   "environmentIntensity": 0.75,
   "sun": {
    "position": [

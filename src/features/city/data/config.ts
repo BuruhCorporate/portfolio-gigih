@@ -64,7 +64,6 @@ export interface CityConfig {
     desktopMin: number
   }
   lights: {
-    environment: string
     environmentIntensity: number
     sun: { position: Vec3; intensity: number; extent: number; mapSize: number; mobileMapSize: number; bias: number; normalBias: number }
   }

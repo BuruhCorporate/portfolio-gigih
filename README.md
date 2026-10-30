@@ -51,12 +51,12 @@ src/
     sections/             Hero, About, ExperienceTimeline, Projects, Skills, Credentials, Contact
   features/city/          the 3D city; index.ts is its public API
     components/           CityStage (lazy canvas + WebGL fallback), CityScene, Building, Parts, Ground, Cars, Character
-    data/                 city.json, screens.json, config.ts (types for both)
-    lib/                  geometry.ts (pure maths, tested), drawScreen.ts
+    data/                 city.json, screens.json, config.ts (types for both), studioHdr.ts (lighting)
+    lib/                  geometry.ts (pure maths, tested), drawScreen.ts, environment.ts (HDR → texture)
     hooks/                useInstances, useScreenTextures
   styles/                 tokens.css, global.css
 tests/                    node:test checks for features/city/lib/geometry.ts
-public/                   hdri/studio.hdr, images/city.webp, gigih.jpg
+public/                   images/city.webp, gigih.jpg, robots.txt
 scripts/                  write-headers.mjs (runs before every build)
 docs/                     PLAN.md
 ```
@@ -65,7 +65,7 @@ docs/                     PLAN.md
 
 | File | Source | License |
 |---|---|---|
-| `public/hdri/studio.hdr` | Poly Haven, studio_small_09 | CC0 |
+| `src/features/city/data/studioHdr.ts` (256×128 HDR as base64, bundled so no `.hdr` request exists for download managers to intercept) | Poly Haven, studio_small_09 | CC0 |
 | `public/images/city.webp` | rendered from this site | own work |
 
 Everything in the city (buildings, the figure, cars, trees, signs) is modelled in code. Company names appear as plain text on signs; no logos are used. The dashboards are illustrations, not screenshots of client systems.

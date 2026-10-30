@@ -5,7 +5,7 @@ import security from '../config/security-headers.json' with { type: 'json' }
 
 const all = { 'Content-Security-Policy': security.csp.join('; '), ...security.headers }
 const longCache = 'public, max-age=31536000, immutable'
-const assetDirs = ['hdri', 'images']
+const assetDirs = ['images']
 
 const vercel = {
   headers: [

@@ -4,6 +4,7 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Environment, Html, PerformanceMonitor } from '@react-three/drei'
 import { city, type ScreenId, type Stop } from '../data/config'
 import { useScreenTextures } from '../hooks/useScreenTextures'
+import { createStudioEnvironment } from '../lib/environment'
 import { Building } from './Building'
 import { PartList } from './Parts'
 import { Ground } from './Ground'
@@ -142,20 +143,26 @@ const INTRO_END = rise.delay + rise.stagger * buildings.length + rise.duration
  * the opening rise and a moment after each hover lift. Cars and the figure use blob shadows.
  */
 const ShadowBaker = ({ hovered }: { hovered: string | null }) => {
+  const get = useThree((state) => state.get)
   const settleUntil = useRef(0)
   const pending = useRef(true)
+  const atRest = useRef(false)
 
   useEffect(() => {
     pending.current = true
   }, [hovered])
 
-  useFrame((state) => {
-    const now = state.clock.elapsedTime
+  useFrame(({ clock }) => {
+    const now = clock.elapsedTime
     if (pending.current) {
       settleUntil.current = now + perf.settle
       pending.current = false
     }
-    if (now < INTRO_END || now < settleUntil.current) state.gl.shadowMap.needsUpdate = true
+    const moving = now < INTRO_END || now < settleUntil.current
+    // One more bake once everything has stopped: a slow first frame can jump the clock past the intro,
+    // and the last bake inside it would otherwise show the buildings still underground.
+    if (moving || !atRest.current) get().gl.shadowMap.needsUpdate = true
+    atRest.current = !moving
   })
 
   return null
@@ -179,6 +186,8 @@ export const CityScene = ({ stopId, animate, maxDpr, compact, onSelect }: CitySc
   const [hovered, setHovered] = useState<string | null>(null)
   const [dpr, setDpr] = useState(() => budgetDpr(maxDpr))
   const textures = useScreenTextures(SCREEN_IDS)
+  const environment = useMemo(() => createStudioEnvironment(), [])
+  useEffect(() => () => environment.dispose(), [environment])
   const stop = stops[stopId] ?? stops.overview
   const mapSize = compact ? lights.sun.mobileMapSize : lights.sun.mapSize
   const shadowSize = useMemo(() => [mapSize, mapSize] as const, [mapSize])
@@ -197,7 +206,7 @@ export const CityScene = ({ stopId, animate, maxDpr, compact, onSelect }: CitySc
       <PerformanceMonitor onDecline={() => setDpr(1)} />
       <ShadowBaker hovered={hovered} />
       <CameraRig stop={stop} animate={animate} />
-      <Environment files={lights.environment} environmentIntensity={lights.environmentIntensity} />
+      <Environment map={environment} environmentIntensity={lights.environmentIntensity} />
       <directionalLight
         position={lights.sun.position}
         intensity={lights.sun.intensity}

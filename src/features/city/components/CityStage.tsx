@@ -12,10 +12,16 @@ const CityScene = lazy(async () => {
 const DESKTOP_DPR = 2
 const MOBILE_DPR = 1.5
 
+// Without a GPU, WebGL falls back to CPU rendering (SwiftShader, llvmpipe) and the city freezes the page for seconds;
+// failIfMajorPerformanceCaveat refuses that context, so those devices get the still image instead.
 const hasWebGL = (): boolean => {
   try {
     const canvas = document.createElement('canvas')
-    return Boolean(canvas.getContext('webgl2') ?? canvas.getContext('webgl'))
+    const options: WebGLContextAttributes = { failIfMajorPerformanceCaveat: true }
+    const gl = canvas.getContext('webgl2', options) ?? canvas.getContext('webgl', options)
+    // Free the probe context; the scene creates its own.
+    gl?.getExtension('WEBGL_lose_context')?.loseContext()
+    return Boolean(gl)
   } catch {
     return false
   }
